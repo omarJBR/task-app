@@ -1,0 +1,64 @@
+<div class="system-names-container">
+    <div class="system-name-header">
+        <div class="add-name-container" (click)="openNameModal(nameModal,true)">
+            <i class="fa fa-plus" aria-hidden="true"></i> إضافة
+        </div>
+
+        <div class="search-name-container">
+            <input class="search-input" type="text" placeholder="ابحث عن الاسم" [(ngModel)]="searchString"
+                (ngModelChange)="getNamesList()">
+        </div>
+    </div>
+
+    <div class="names-list-container">
+        <ng-container *ngFor="let name of listOfNames;index as nameIndex">
+            <div class="name-container">
+                <div class="name-section">
+                    <span>{{ name?.name }}</span>
+                </div>
+                <div class="actions-section">
+                    <div class="edit-action" (click)="openNameModal(nameModal,false,name,nameIndex)">
+                        <i class="fa fa-pencil" aria-hidden="true"></i> تعديل
+                    </div>
+                    <div class="delete-action" (click)="deleteName(nameIndex)">
+                        <i class="fa fa-trash" aria-hidden="true"></i> حذف
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #nameModal>
+    <div class="modal-header">
+        <span *ngIf="isNewName">إضافة الاسم</span>
+        <span *ngIf="!isNewName">تعديل على الاسم</span>
+        <i class="fa fa-times" aria-hidden="true" (click)="dialogService.closeAll()"></i>
+    </div>
+
+    <div class="modal-body">
+        <form [formGroup]="nameForm">
+            <div class="input-field">
+                <label for="name">الاسم<span class="mark">*</span></label>
+                <input type="text" id="name" name="name" formControlName="name" placeholder="اكتب الاسم أو الرقم">
+            </div>
+
+            <div class="input-field margin-top-class">
+                <label for="details">التفاصيل</label>
+                <input type="text" id="details" name="details" formControlName="details" placeholder="التفاصيل">
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <div class="buttons-container">
+            <button class="save-button" [disabled]="!nameForm.valid"
+                (click)="isNewName && addName();!isNewName && editName()">
+                حفظ
+            </button>
+            <button class="cancel-button" (click)="dialogService.closeAll()">
+                الغاء
+            </button>
+        </div>
+    </div>
+</ng-template>

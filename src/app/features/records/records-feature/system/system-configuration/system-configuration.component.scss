@@ -1,0 +1,14 @@
+.system-config-container {
+    display: flex;
+
+    .system-sidebar-section {
+        width: 264px;
+        background-color: whitesmoke;
+        border-left: 1px solid #c0c0c087;
+        min-height: calc(100vh - 54px - 48px);
+    }
+
+    .system-names-section {
+        width: calc(100% - 264px);
+    }
+}

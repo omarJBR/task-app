@@ -1,0 +1,10 @@
+<div class="system-header-container">
+    <div class="tabs-container">
+        <ng-container *ngFor="let tab of tabs;index as i">
+            <div class="tab" [routerLink]="[tab?.path]"
+                [ngClass]="{'active': activeTabPath === tab?.path,'margin-class': i > 0}">
+                <span>{{ tab?.name }}</span>
+            </div>
+        </ng-container>
+    </div>
+</div>
